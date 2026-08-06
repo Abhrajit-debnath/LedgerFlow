@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "../src/generated/zod"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  name        String
+  phoneNumber String   @unique
+  shopName    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Customer {
+  id          String   @id @default(cuid())
+  name        String
+  phoneNumber String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("customers")
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  UPI
+}
+
+model Sales {
+  id         String @id @default(cuid())
+  userId     String
+  customerId String
+
+  paymentMethod PaymentMethod
+
+  total Float
+
+  notes String?
+
+  createdAt DateTime
+
+  updatedAt DateTime
+
+  @@map("sales")
+}
+
+model SalesItem {
+  id String @id @default(cuid())
+
+  saleId String
+
+  itemName String
+
+  quantity Int
+
+  unitPrice Float
+
+  lineTotal Float
+
+  createdAt DateTime
+
+  @@map("sales_items")
+}
