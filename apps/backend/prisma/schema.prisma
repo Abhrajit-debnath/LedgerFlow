@@ -22,6 +22,7 @@ model User {
   name        String
   phoneNumber String   @unique
   shopName    String
+  password    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -55,9 +56,9 @@ model Sales {
 
   notes String?
 
-  createdAt DateTime
+  createdAt DateTime @default(now())
 
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 
   @@map("sales")
 }
@@ -75,7 +76,7 @@ model SalesItem {
 
   lineTotal Float
 
-  createdAt DateTime
+  createdAt DateTime 
 
   @@map("sales_items")
 }

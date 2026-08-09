@@ -16,6 +16,7 @@ build/
 .windsurf/
 .vscode/
 .idea/
+generated
 
 # Logs
 *.log
